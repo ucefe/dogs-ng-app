@@ -1,0 +1,37 @@
+<mat-sidenav-container>
+  <mat-sidenav opened="true" mode="side">
+    <mat-nav-list>
+      <a routerLink="" (click)="refreshImages()" mat-list-item>Random dogs</a>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header [expandedHeight]="'48px'">
+            <mat-panel-title>
+              <span>Breads</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <ng-container *ngFor="let breed of sideBarItems$ | async">
+            <button *ngIf="breed.children.length; else noChildren"
+                    mat-list-item [matMenuTriggerFor]="children" >{{breed.name}}</button>
+
+            <ng-template #noChildren>
+              <a mat-list-item [routerLink]="['breed', breed.name]">{{breed.name}}</a>
+            </ng-template>
+
+            <mat-menu xPosition="before" #children="matMenu"> 
+              <a mat-menu-item [routerLink]="['breed', breed.name, sub]" *ngFor="let sub of breed.children"   >{{sub}}</a>
+            </mat-menu>
+          
+          </ng-container>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

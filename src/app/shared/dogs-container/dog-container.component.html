@@ -1,0 +1,5 @@
+<div class="dog-img-container">
+  <div class="dog-img" *ngFor="let dogImage of dogs">
+    <img (click)="openImage(dogImage)" [src]="dogImage" alt="A random dog">
+  </div>
+</div>
